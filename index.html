@@ -3,97 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Favicon Code -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    
-    <title>Ali Bazrgar | Computer Engineer</title>
-    <meta name="description" content="Personal portfolio of Ali Bazrgar, a Computer Engineer passionate about Cybersecurity and AI.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Particles.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.css">
-    
-    <!-- My CSS -->
+    <meta name="theme-color" content="#0b0d10">
+    <meta name="description" content="Ali Bazrgar — Computer Engineering student building practical AI, web, and systems projects.">
+    <meta name="author" content="Ali Bazrgar">
+
+    <title>Ali Bazrgar — Computer Engineering</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b0d10'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='34' font-weight='700' fill='%23b7ff4a'%3EA%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-    <!-- Hero Section with Animated Background -->
-    <header id="hero">
-        <div id="particles-js"></div>
-        <div class="hero-content">
-            <h1 class="glitch" data-text="Ali Bazrgar">Ali Bazrgar</h1>
-            <p class="tagline">Computer Engineer | Cybersecurity & AI Enthusiast</p>
-            <a href="#about" class="cta-button">Explore My Work <i class="fas fa-arrow-down"></i></a>
-        </div>
+<body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <a class="brand" href="#" aria-label="Ali Bazrgar home">
+            <span class="brand-mark">A</span>
+            <span>Ali Bazrgar</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
     <main>
-        <!-- About Me Section -->
-        <section id="about" class="fade-in">
-            <div class="container">
-                <h2>About Me</h2>
-                <p>
-                    Hello! I'm Ali, a passionate <strong>Computer Engineer</strong> with a deep love for the intricate worlds of <strong>Cybersecurity</strong> 🛡️ and <strong>Artificial Intelligence</strong> 🤖. I enjoy building secure systems and exploring the limitless possibilities of AI to solve real-world problems. My goal is to merge these two fields to create intelligent and secure applications for a better future. 🚀
+        <section class="hero section">
+            <div class="hero-copy">
+                <p class="eyebrow">COMPUTER ENGINEERING · AI · SYSTEMS</p>
+                <h1>Building practical<br><span>digital tools.</span></h1>
+                <p class="hero-text">
+                    I’m Ali Bazrgar, a computer engineering student focused on practical software,
+                    local AI, web applications, and hands-on systems work.
                 </p>
+
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#work">View selected work <span>↗</span></a>
+                    <a class="button button-ghost" href="https://github.com/ali-bazrgar" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+                </div>
+            </div>
+
+            <div class="hero-meta">
+                <div class="meta-line"><span>Based in</span><strong>Tehran, Iran</strong></div>
+                <div class="meta-line"><span>Status</span><strong>Final-semester B.Sc.</strong></div>
+                <div class="meta-line"><span>Open to</span><strong>Internships & junior roles</strong></div>
             </div>
         </section>
 
-        <!-- My Project Section -->
-        <section id="projects" class="fade-in">
-            <div class="container">
-                <h2>My Web App</h2>
-                <div class="project-card">
-                    <h3>My Language Learning App</h3>
-                    <p>I've developed a comprehensive web application designed to make language learning engaging and effective. It combines modern pedagogy with interactive tools to help users master new languages. 🧠📚</p>
-                    <a href="https://app.alibazrgar.ir" target="_blank" class="project-link">
-                        <i class="fas fa-rocket"></i> Launch App
+        <section id="work" class="section">
+            <div class="section-heading">
+                <p class="eyebrow">SELECTED WORK</p>
+                <h2>A few things I’ve built.</h2>
+            </div>
+
+            <div class="project-grid">
+                <article class="project-card featured">
+                    <div class="project-top">
+                        <span class="project-number">01</span>
+                        <span class="project-type">PWA · AI</span>
+                    </div>
+                    <h3>WordLens</h3>
+                    <p>
+                        A language-learning web app combining practical study tools, AI-assisted features,
+                        flashcards, dictionary workflows, and text-to-speech.
+                    </p>
+                    <div class="project-tags">
+                        <span>Web App</span>
+                        <span>AI</span>
+                        <span>PWA</span>
+                    </div>
+                    <a class="project-link" href="https://wordlens.alibazrgar.ir" target="_blank" rel="noopener noreferrer">
+                        Open project <span>↗</span>
                     </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-number">02</span>
+                        <span class="project-type">OBSIDIAN · LATEX</span>
+                    </div>
+                    <h3>TikZ Renderer</h3>
+                    <p>
+                        An Obsidian plugin for local TikZ, PGFPlots, circuitikz, and LaTeX rendering
+                        with SVG output and Persian/Arabic support.
+                    </p>
+                    <div class="project-tags">
+                        <span>TypeScript</span>
+                        <span>TeX Live</span>
+                        <span>SVG</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/ali-bazrgar/obsidian-tikz-renderer" target="_blank" rel="noopener noreferrer">
+                        View on GitHub <span>↗</span>
+                    </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-top">
+                        <span class="project-number">03</span>
+                        <span class="project-type">LOCAL AI</span>
+                    </div>
+                    <h3>Agent</h3>
+                    <p>
+                        A local-first AI workspace built around llama.cpp-compatible models,
+                        retrieval, memory, tool use, and structured context.
+                    </p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>FastAPI</span>
+                        <span>LLM</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/ali-bazrgar/Agent" target="_blank" rel="noopener noreferrer">
+                        View on GitHub <span>↗</span>
+                    </a>
+                </article>
+            </div>
+
+            <a class="all-projects" href="https://github.com/ali-bazrgar" target="_blank" rel="noopener noreferrer">
+                More on GitHub <span>↗</span>
+            </a>
+        </section>
+
+        <section id="about" class="section about-section">
+            <div class="section-heading">
+                <p class="eyebrow">ABOUT</p>
+                <h2>Curious, hands-on, and still learning.</h2>
+            </div>
+
+            <div class="about-layout">
+                <p class="about-lead">
+                    I enjoy taking an idea from a blank screen to a working system.
+                    My current interests sit at the intersection of networking, local AI,
+                    web applications, and developer tooling.
+                </p>
+
+                <div class="capabilities">
+                    <div><span>01</span>Networking & home-lab practice</div>
+                    <div><span>02</span>MikroTik & Cisco experimentation</div>
+                    <div><span>03</span>Linux / Windows & remote systems</div>
+                    <div><span>04</span>Git, GitHub & Cloudflare</div>
+                    <div><span>05</span>Local LLM deployment</div>
+                    <div><span>06</span>Web app development</div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="fade-in">
-            <div class="container">
-                <h2>Let's Connect</h2>
-                <p>Feel free to reach out to me through any of the platforms below. I'm always open to discussing new opportunities, interesting ideas, or just a friendly chat! 🤝</p>
-                <div class="contact-links">
-                    <div class="contact-link">
-                        <i class="fas fa-envelope"></i>
-                        <span>ali.bazrgar.ir@gmail.com</span>
-                    </div>
-                    <a href="https://t.me/alibazrgar" class="contact-link" target="_blank">
-                        <i class="fab fa-telegram"></i>
-                        <span>Telegram</span>
-                    </a>
-                    <a href="https://instagram.com/ali.bazrgar_" class="contact-link" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
+        <section id="contact" class="section contact-section">
+            <div class="contact-card">
+                <p class="eyebrow">CONTACT</p>
+                <h2>Let’s build something useful.</h2>
+                <p>
+                    For internships, junior opportunities, collaborations, or technical projects.
+                </p>
+
+                <div class="contact-actions">
+                    <a class="button button-primary" href="mailto:ali.bazrgar2003@gmail.com">Email me <span>↗</span></a>
+                    <a class="button button-ghost" href="https://github.com/ali-bazrgar" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+                    <a class="button button-ghost" href="https://t.me/alibazrgar" target="_blank" rel="noopener noreferrer">Telegram <span>↗</span></a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Ali Bazrgar. All Rights Reserved. Made with ❤️ and lots of ☕.</p>
+    <footer class="site-footer">
+        <span>© <span id="year"></span> Ali Bazrgar</span>
+        <a href="https://github.com/ali-bazrgar/main" target="_blank" rel="noopener noreferrer">Source ↗</a>
     </footer>
 
-    <!-- Particles.js Library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
-    <!-- My JavaScript -->
     <script src="script.js"></script>
-
 </body>
 </html>
