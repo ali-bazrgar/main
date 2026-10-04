@@ -6,10 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const TAU = Math.PI * 2;
 
     /* ---------- Full-page interactive network background ---------- */
-    const canvas = document.createElement('canvas');
-    canvas.id = 'background-network';
-    canvas.setAttribute('aria-hidden', 'true');
-    document.body.prepend(canvas);
+    const canvas = document.getElementById('background-network') || document.createElement('canvas');
+    if (!canvas.isConnected) {
+        canvas.id = 'background-network';
+        canvas.setAttribute('aria-hidden', 'true');
+        document.body.prepend(canvas);
+    }
 
     const ctx = canvas.getContext('2d', { alpha: true });
     let width = 1;
@@ -17,24 +19,29 @@ document.addEventListener('DOMContentLoaded', () => {
     let dpr = 1;
     let nodes = [];
     let lastTime = performance.now();
+    let pointerTrail = [];
+    let animationFrame = 0;
 
     const pointer = {
         x: window.innerWidth * .5,
         y: window.innerHeight * .42,
         targetX: window.innerWidth * .5,
         targetY: window.innerHeight * .42,
-        active: false
+        previousX: window.innerWidth * .5,
+        previousY: window.innerHeight * .42,
+        active: false,
+        speed: 0
     };
 
     function makeNodes() {
-        const count = Math.max(38, Math.min(92, Math.floor((width * height) / 15000)));
+        const count = Math.max(56, Math.min(128, Math.floor((width * height) / 10500)));
         nodes = Array.from({ length: count }, (_, index) => {
             const depth = .45 + Math.random() * .65;
             return {
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - .5) * (.06 + depth * .06),
-                vy: (Math.random() - .5) * (.06 + depth * .06),
+                vx: (Math.random() - .5) * (.07 + depth * .08),
+                vy: (Math.random() - .5) * (.07 + depth * .08),
                 depth,
                 radius: index % 11 === 0 ? 2.4 + depth : 1.05 + depth * 1.15,
                 phase: Math.random() * TAU,
@@ -59,9 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setPointer(event) {
+        if (event.pointerType === 'touch') return;
+
         pointer.targetX = event.clientX;
         pointer.targetY = event.clientY;
-        pointer.active = event.pointerType !== 'touch';
+        pointer.active = true;
+
+        const trailPoint = { x: event.clientX, y: event.clientY };
+        pointerTrail.unshift(trailPoint);
+        if (pointerTrail.length > 16) pointerTrail.length = 16;
     }
 
     window.addEventListener('pointermove', setPointer, { passive: true });
@@ -73,10 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resize, { passive: true });
 
     function drawSignalArc(time, index) {
-        const cx = width * (.52 + (pointer.x / width - .5) * .025 * index);
-        const cy = height * (.45 + (pointer.y / height - .5) * .018 * index);
-        const rx = Math.min(width, height) * (.28 + index * .09);
-        const ry = rx * (.42 + index * .05);
+        const pointerOffsetX = (pointer.x / width - .5);
+        const pointerOffsetY = (pointer.y / height - .5);
+        const cx = width * (.5 + pointerOffsetX * (.08 + index * .018));
+        const cy = height * (.46 + pointerOffsetY * (.06 + index * .012));
+        const rx = Math.min(width, height) * (.27 + index * .075);
+        const ry = rx * (.4 + index * .045);
 
         ctx.beginPath();
         ctx.ellipse(
@@ -113,7 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = glow;
         ctx.fillRect(0, 0, width, height);
 
-        for (let i = 0; i < 3; i++) drawSignalArc(time, i);
+        for (let i = 0; i < 5; i++) drawSignalArc(time, i);
+
+        if (pointer.active && pointerTrail.length > 1) {
+            for (let i = pointerTrail.length - 1; i > 0; i--) {
+                const a = pointerTrail[i];
+                const b = pointerTrail[i - 1];
+                const alpha = (1 - i / pointerTrail.length) * .11;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = 'rgba(183,255,74,' + alpha.toFixed(3) + ')';
+                ctx.lineWidth = 1 + (1 - i / pointerTrail.length) * 1.4;
+                ctx.stroke();
+            }
+        }
 
         const points = nodes.map(node => ({
             x: node.x + parallaxX * node.depth,
@@ -130,12 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const distance = Math.hypot(dx, dy);
                 if (distance > 165) continue;
 
-                const alpha = Math.pow(1 - distance / 165, 1.55) * .16;
+                const pointerDistanceA = Math.hypot(a.x - pointer.x, a.y - pointer.y);
+                const pointerDistanceB = Math.hypot(b.x - pointer.x, b.y - pointer.y);
+                const pointerBoost = pointer.active
+                    ? Math.max(0, 1 - Math.min(pointerDistanceA, pointerDistanceB) / 360)
+                    : 0;
+
+                const alpha = Math.pow(1 - distance / 165, 1.55) * (.13 + pointerBoost * .22);
                 ctx.beginPath();
                 ctx.moveTo(a.x, a.y);
                 ctx.lineTo(b.x, b.y);
-                ctx.strokeStyle = 'rgba(183,255,74,' + alpha.toFixed(3) + ')';
-                ctx.lineWidth = distance < 72 ? .85 : .5;
+                ctx.strokeStyle = 'rgba(183,255,74,' + Math.min(.34, alpha).toFixed(3) + ')';
+                ctx.lineWidth = distance < 72 ? (1 + pointerBoost * .65) : (.5 + pointerBoost * .45);
                 ctx.stroke();
 
                 if ((i * 17 + j * 31) % 23 === 0) {
@@ -155,33 +190,50 @@ document.addEventListener('DOMContentLoaded', () => {
             const node = nodes[i];
             const point = points[i];
             const near = Math.hypot(point.x - pointer.x, point.y - pointer.y);
-            const active = pointer.active && near < 125;
-            const pulse = 1 + Math.sin(time * .0011 + node.phase) * .1;
+            const interaction = pointer.active ? Math.max(0, 1 - near / 250) : 0;
+            const active = pointer.active && near < 165;
+            const pulse = 1 + Math.sin(time * .00125 + node.phase) * .11;
+            const radius = node.radius * (pulse + interaction * .85);
 
-            if (active) {
+            if (interaction > 0) {
                 ctx.beginPath();
-                ctx.arc(point.x, point.y, 9 + Math.max(0, 1 - near / 125) * 12, 0, TAU);
-                ctx.strokeStyle = 'rgba(183,255,74,.13)';
-                ctx.lineWidth = 1;
+                ctx.arc(point.x, point.y, 8 + interaction * 22, 0, TAU);
+                ctx.strokeStyle = 'rgba(183,255,74,' + (0.06 + interaction * .17).toFixed(3) + ')';
+                ctx.lineWidth = .7 + interaction * 1.1;
                 ctx.stroke();
             }
 
             ctx.beginPath();
-            ctx.arc(point.x, point.y, node.radius * pulse, 0, TAU);
-            ctx.fillStyle = active ? '#c7ff70' : 'rgba(198,211,220,' + (.34 + node.depth * .34) + ')';
-            ctx.shadowColor = 'rgba(183,255,74,.5)';
-            ctx.shadowBlur = active ? 15 : 5;
+            ctx.arc(point.x, point.y, radius, 0, TAU);
+            ctx.fillStyle = active ? '#d4ff92' : 'rgba(198,211,220,' + (.32 + node.depth * .38) + ')';
+            ctx.shadowColor = 'rgba(183,255,74,.62)';
+            ctx.shadowBlur = active ? 18 : 5 + interaction * 8;
             ctx.fill();
             ctx.shadowBlur = 0;
         }
 
         if (pointer.active) {
-            const cursorRadius = 6 + Math.sin(time * .004) * 1.4;
+            const cursorPulse = 1 + Math.sin(time * .0045) * .12;
+
             ctx.beginPath();
-            ctx.arc(pointer.x, pointer.y, cursorRadius, 0, TAU);
-            ctx.strokeStyle = 'rgba(183,255,74,.24)';
+            ctx.arc(pointer.x, pointer.y, 9 * cursorPulse, 0, TAU);
+            ctx.strokeStyle = 'rgba(183,255,74,.25)';
             ctx.lineWidth = 1;
             ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(pointer.x, pointer.y, 25 + pointer.speed * 18, 0, TAU);
+            ctx.strokeStyle = 'rgba(183,255,74,' + Math.min(.12, .055 + pointer.speed * .025).toFixed(3) + ')';
+            ctx.lineWidth = .8;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(pointer.x, pointer.y, 2.2 + pointer.speed * 1.2, 0, TAU);
+            ctx.fillStyle = 'rgba(215,255,145,.9)';
+            ctx.shadowColor = 'rgba(183,255,74,.75)';
+            ctx.shadowBlur = 14;
+            ctx.fill();
+            ctx.shadowBlur = 0;
         }
     }
 
@@ -190,28 +242,45 @@ document.addEventListener('DOMContentLoaded', () => {
         lastTime = time;
         const step = dt / 16.67;
 
-        pointer.x += (pointer.targetX - pointer.x) * .075;
-        pointer.y += (pointer.targetY - pointer.y) * .075;
+        const pointerDX = pointer.targetX - pointer.x;
+        const pointerDY = pointer.targetY - pointer.y;
+        pointer.speed = Math.min(2.5, Math.hypot(pointerDX, pointerDY) / 40);
+        pointer.previousX = pointer.x;
+        pointer.previousY = pointer.y;
+        pointer.x += pointerDX * .13;
+        pointer.y += pointerDY * .13;
+
+        if (pointerTrail.length > 0) {
+            const latest = pointerTrail[0];
+            latest.x += (pointer.x - latest.x) * .18;
+            latest.y += (pointer.y - latest.y) * .18;
+        }
 
         for (const node of nodes) {
-            node.vx += Math.sin(time * .00017 + node.phase) * .00016 * node.depth;
-            node.vy += Math.cos(time * .00014 + node.phase) * .00016 * node.depth;
+            node.vx += Math.sin(time * .00017 + node.phase) * .0002 * node.depth;
+            node.vy += Math.cos(time * .00014 + node.phase) * .0002 * node.depth;
 
             if (pointer.active) {
                 const dx = node.x - pointer.x;
                 const dy = node.y - pointer.y;
                 const distance = Math.hypot(dx, dy);
-                const radius = 240;
+                const radius = 340;
 
                 if (distance > .001 && distance < radius) {
-                    const strength = Math.pow(1 - distance / radius, 2) * .42 * node.depth;
-                    node.vx += (dx / distance) * strength * .008;
-                    node.vy += (dy / distance) * strength * .008;
+                    const proximity = Math.pow(1 - distance / radius, 2);
+                    const force = proximity * (.95 + pointer.speed * .35) * node.depth;
+                    const tangentX = -dy / distance;
+                    const tangentY = dx / distance;
+
+                    node.vx += (dx / distance) * force * .014;
+                    node.vy += (dy / distance) * force * .014;
+                    node.vx += tangentX * force * .004;
+                    node.vy += tangentY * force * .004;
                 }
             }
 
-            node.vx *= Math.pow(.992, step);
-            node.vy *= Math.pow(.992, step);
+            node.vx *= Math.pow(.989, step);
+            node.vy *= Math.pow(.989, step);
             node.x += node.vx * step;
             node.y += node.vy * step;
 
@@ -227,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resize();
     if (!reducedMotion.matches) {
-        requestAnimationFrame(animate);
+        animationFrame = requestAnimationFrame(animate);
     }
 
     /* ---------- English / Persian language switcher ---------- */
