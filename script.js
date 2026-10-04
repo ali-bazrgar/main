@@ -325,10 +325,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.site-header');
     const nav = document.querySelector('.nav');
     const toggle = document.createElement('button');
+    const headerActions = document.createElement('div');
+
     toggle.id = 'language-toggle';
     toggle.className = 'language-toggle';
     toggle.type = 'button';
-    header.insertBefore(toggle, nav);
+
+    headerActions.className = 'header-actions';
+    nav.replaceWith(headerActions);
+    headerActions.append(toggle, nav);
 
     const setText = (selector, key, language) => {
         const element = document.querySelector(selector);
@@ -348,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         toggle.textContent = isPersian ? 'EN' : 'FA';
         toggle.setAttribute('aria-label', t.languageAria);
+        nav.setAttribute('aria-label', isPersian ? 'ناوبری اصلی' : 'Primary navigation');
 
         const brand = document.querySelector('.brand');
         if (brand) brand.setAttribute('aria-label', t.brandAria);
