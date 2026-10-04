@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const h1 = document.querySelector('.hero h1');
         if (h1) {
-            h1.innerHTML = '<span>' + t.heroTitleLead + '</span><br><span>' + t.heroTitleAccent + '</span>';
+            h1.innerHTML = '<span class="title-line">' + t.heroTitleLead + '</span><span class="title-line title-accent">' + t.heroTitleAccent + '</span>';
         }
 
         setText('.hero-text', 'heroText', language);
