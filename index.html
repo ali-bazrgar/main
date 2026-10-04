@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b0d10">
-    <meta name="description" content="Ali Bazrgar — Computer Engineering student building practical AI, web, and systems projects.">
+    <meta name="description" content="Ali Bazrgar — Computer Engineering student interested in networking, AI, systems, and practical software.">
     <meta name="author" content="Ali Bazrgar">
-
     <title>Ali Bazrgar — Computer Engineering</title>
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b0d10'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='34' font-weight='700' fill='%23b7ff4a'%3EA%3C/text%3E%3C/svg%3E">
@@ -25,8 +24,8 @@
         </a>
 
         <nav class="nav" aria-label="Primary navigation">
+            <a href="#focus">Focus</a>
             <a href="#work">Work</a>
-            <a href="#about">About</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
@@ -34,15 +33,15 @@
     <main>
         <section class="hero section">
             <div class="hero-copy">
-                <p class="eyebrow">COMPUTER ENGINEERING · AI · SYSTEMS</p>
-                <h1>Building practical<br><span>digital tools.</span></h1>
+                <p class="eyebrow">COMPUTER ENGINEERING · NETWORKING · AI</p>
+                <h1>Exploring<br><span>useful technology.</span></h1>
                 <p class="hero-text">
-                    I’m Ali Bazrgar, a computer engineering student focused on practical software,
-                    local AI, web applications, and hands-on systems work.
+                    I’m Ali Bazrgar, a final-semester computer engineering student interested in
+                    networking, local AI, systems, and practical web applications.
                 </p>
 
                 <div class="hero-actions">
-                    <a class="button button-primary" href="#work">View selected work <span>↗</span></a>
+                    <a class="button button-primary" href="#focus">My interests <span>↓</span></a>
                     <a class="button button-ghost" href="https://github.com/ali-bazrgar" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
                 </div>
             </div>
@@ -54,113 +53,94 @@
             </div>
         </section>
 
-        <section id="work" class="section">
+        <section id="focus" class="section">
             <div class="section-heading">
-                <p class="eyebrow">SELECTED WORK</p>
-                <h2>A few things I’ve built.</h2>
+                <p class="eyebrow">FOCUS</p>
+                <h2>Where I’m putting my attention.</h2>
             </div>
 
-            <div class="project-grid">
-                <article class="project-card featured">
-                    <div class="project-top">
-                        <span class="project-number">01</span>
-                        <span class="project-type">PWA · AI</span>
-                    </div>
+            <div class="focus-grid">
+                <article class="focus-card">
+                    <span>01</span>
+                    <h3>Networking</h3>
+                    <p>Computer networks, infrastructure, MikroTik, Cisco, remote access, and hands-on lab work.</p>
+                </article>
+
+                <article class="focus-card">
+                    <span>02</span>
+                    <h3>Artificial Intelligence</h3>
+                    <p>Local LLMs, model deployment, AI-assisted tools, and practical applications of generative AI.</p>
+                </article>
+
+                <article class="focus-card">
+                    <span>03</span>
+                    <h3>Systems</h3>
+                    <p>Windows, Linux, servers, self-hosting, DNS, Cloudflare, and connecting services into useful systems.</p>
+                </article>
+
+                <article class="focus-card">
+                    <span>04</span>
+                    <h3>Web Applications</h3>
+                    <p>Building clean, practical products and turning ideas into working web experiences.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="work" class="section work-section">
+            <div class="section-heading">
+                <p class="eyebrow">ONE PROJECT</p>
+                <h2>Something I’ve built.</h2>
+            </div>
+
+            <article class="project-card featured single-project">
+                <div class="project-top">
+                    <span class="project-number">01</span>
+                    <span class="project-type">PWA · AI</span>
+                </div>
+
+                <div class="project-content">
                     <h3>WordLens</h3>
                     <p>
-                        A language-learning web app combining practical study tools, AI-assisted features,
-                        flashcards, dictionary workflows, and text-to-speech.
+                        A practical language-learning web app with AI-assisted features and study tools,
+                        built as a progressive web application.
                     </p>
+
                     <div class="project-tags">
                         <span>Web App</span>
                         <span>AI</span>
                         <span>PWA</span>
                     </div>
+
                     <a class="project-link" href="https://wordlens.alibazrgar.ir" target="_blank" rel="noopener noreferrer">
-                        Open project <span>↗</span>
+                        Visit WordLens <span>↗</span>
                     </a>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-top">
-                        <span class="project-number">02</span>
-                        <span class="project-type">OBSIDIAN · LATEX</span>
-                    </div>
-                    <h3>TikZ Renderer</h3>
-                    <p>
-                        An Obsidian plugin for local TikZ, PGFPlots, circuitikz, and LaTeX rendering
-                        with SVG output and Persian/Arabic support.
-                    </p>
-                    <div class="project-tags">
-                        <span>TypeScript</span>
-                        <span>TeX Live</span>
-                        <span>SVG</span>
-                    </div>
-                    <a class="project-link" href="https://github.com/ali-bazrgar/obsidian-tikz-renderer" target="_blank" rel="noopener noreferrer">
-                        View on GitHub <span>↗</span>
-                    </a>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-top">
-                        <span class="project-number">03</span>
-                        <span class="project-type">LOCAL AI</span>
-                    </div>
-                    <h3>Agent</h3>
-                    <p>
-                        A local-first AI workspace built around llama.cpp-compatible models,
-                        retrieval, memory, tool use, and structured context.
-                    </p>
-                    <div class="project-tags">
-                        <span>Python</span>
-                        <span>FastAPI</span>
-                        <span>LLM</span>
-                    </div>
-                    <a class="project-link" href="https://github.com/ali-bazrgar/Agent" target="_blank" rel="noopener noreferrer">
-                        View on GitHub <span>↗</span>
-                    </a>
-                </article>
-            </div>
-
-            <a class="all-projects" href="https://github.com/ali-bazrgar" target="_blank" rel="noopener noreferrer">
-                More on GitHub <span>↗</span>
-            </a>
+                </div>
+            </article>
         </section>
 
-        <section id="about" class="section about-section">
-            <div class="section-heading">
-                <p class="eyebrow">ABOUT</p>
-                <h2>Curious, hands-on, and still learning.</h2>
-            </div>
-
+        <section class="section about-section">
             <div class="about-layout">
-                <p class="about-lead">
-                    I enjoy taking an idea from a blank screen to a working system.
-                    My current interests sit at the intersection of networking, local AI,
-                    web applications, and developer tooling.
-                </p>
-
-                <div class="capabilities">
-                    <div><span>01</span>Networking & home-lab practice</div>
-                    <div><span>02</span>MikroTik & Cisco experimentation</div>
-                    <div><span>03</span>Linux / Windows & remote systems</div>
-                    <div><span>04</span>Git, GitHub & Cloudflare</div>
-                    <div><span>05</span>Local LLM deployment</div>
-                    <div><span>06</span>Web app development</div>
+                <div>
+                    <p class="eyebrow">ABOUT</p>
+                    <h2>Learning by building.</h2>
                 </div>
+
+                <p class="about-lead">
+                    I like understanding how things work by building and experimenting with them.
+                    I’m particularly interested in practical environments where networking,
+                    infrastructure, and AI meet.
+                </p>
             </div>
         </section>
 
         <section id="contact" class="section contact-section">
             <div class="contact-card">
                 <p class="eyebrow">CONTACT</p>
-                <h2>Let’s build something useful.</h2>
-                <p>
-                    For internships, junior opportunities, collaborations, or technical projects.
-                </p>
+                <h2>Let’s connect.</h2>
+                <p>For internships, junior opportunities, collaborations, or technical projects.</p>
 
                 <div class="contact-actions">
-                    <a class="button button-primary" href="mailto:ali.bazrgar2003@gmail.com">Email me <span>↗</span></a>
+                    <a class="button button-primary" href="mailto:ali.bazrgar2003@gmail.com">Email <span>↗</span></a>
                     <a class="button button-ghost" href="https://github.com/ali-bazrgar" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
                     <a class="button button-ghost" href="https://t.me/alibazrgar" target="_blank" rel="noopener noreferrer">Telegram <span>↗</span></a>
                 </div>
